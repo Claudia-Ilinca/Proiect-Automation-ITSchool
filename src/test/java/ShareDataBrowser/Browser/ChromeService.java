@@ -1,4 +1,4 @@
-package ShareData.Browser;
+package ShareDataBrowser.Browser;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -6,14 +6,15 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class ChromeService implements BrowserServiceInterface
 {
-
     private WebDriver driver;
 
+
+
     @Override
-    public void openBrowser() {
+    public void openBrowser()
+    {
         ChromeOptions options = (ChromeOptions) browserOptions();
         driver = new ChromeDriver(options);
-
     }
 
     @Override
@@ -21,9 +22,8 @@ public class ChromeService implements BrowserServiceInterface
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-gpu");
         options.addArguments("--no-sandbox");
-        options.addArguments("--window-size=3440,1440");
-
-        return null;
+        options.addArguments("--window-size=1920,1080");
+        return options;
     }
 
     public WebDriver getDriver() {

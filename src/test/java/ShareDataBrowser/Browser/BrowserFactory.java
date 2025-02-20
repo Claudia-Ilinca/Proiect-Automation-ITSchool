@@ -1,16 +1,15 @@
-package ShareData.Browser;
+package ShareDataBrowser.Browser;
 
 import org.openqa.selenium.WebDriver;
 
 public class BrowserFactory {
-    //definitivez browserele mele
 
-    public WebDriver getBrowserFactory()
-    {
+    public WebDriver getBrowserFactory() {
         String browser = System.getProperty("browser");
-        System.out.println("Ruleaza" + browser);
+        System.out.println("Ruleaza " + browser);
 
-        switch (browser){
+        switch (browser)
+        {
             case BrowserType.BROWSER_CHROME:
                 ChromeService chromeBrowser = new ChromeService();
                 chromeBrowser.openBrowser();
@@ -19,9 +18,8 @@ public class BrowserFactory {
                 EdgeService edgeBrowser = new EdgeService();
                 edgeBrowser.openBrowser();
                 return edgeBrowser.getDriver();
-
         }
         return null;
-    }
 
+    }
 }

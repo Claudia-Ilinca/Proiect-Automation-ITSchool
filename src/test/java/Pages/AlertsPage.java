@@ -1,31 +1,26 @@
 package Pages;
 
 import HelperMethods.AlertMethods;
-import HelperMethods.ElementsMethods;
+import HelperMethods.ElementsMethod;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class AlertsPage
-{
-    WebDriver driver;
-    ElementsMethods elementsMethods;
+public class AlertsPage extends CommonPage {
+
+
+    ElementsMethod elementsMethod;
     AlertMethods alertMethods;
 
     public AlertsPage(WebDriver driver)
     {
-        this.driver = driver;
-        this.elementsMethods = new ElementsMethods(driver);
-        this.alertMethods = new AlertMethods(driver);
-        PageFactory.initElements(driver, this);
-
+        super(driver);
     }
 
     @FindBy(id = "alertButton")
     WebElement alertButton1;
 
-    @FindBy(id = "timerAlert")
+    @FindBy(id = "timerAlertButton")
     WebElement alertButton2;
 
     @FindBy(id = "confirmButton")
@@ -36,27 +31,24 @@ public class AlertsPage
 
     public void dealWithAlertOk()
     {
-        elementsMethods.clickOnElement(alertButton1);
+        elementsMethod.clickOnElement(alertButton1);
         alertMethods.alertOk();
     }
-
     public void dealWithAlertDelay()
     {
-        elementsMethods.clickOnElement(alertButton2);
-        alertMethods.alertDelay();
+     elementsMethod.clickOnElement(alertButton2);
+     alertMethods.alertDelay();
     }
-
     public void dealWithAlertConfirm()
     {
-        elementsMethods.clickOnElement(alertButton3);
+        elementsMethod.clickOnElement(alertButton3);
         alertMethods.alertConfirm();
-
     }
-
     public void dealWithAlertPrompt(String text)
     {
-        elementsMethods.clickOnElement(alertButton4);
+        elementsMethod.clickOnElement(alertButton4);
         alertMethods.alertPrompt(text);
     }
+
 
 }

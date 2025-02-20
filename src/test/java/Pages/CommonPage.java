@@ -1,6 +1,6 @@
 package Pages;
 
-import HelperMethods.ElementsMethods;
+import HelperMethods.ElementsMethod;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,12 +11,12 @@ import java.util.List;
 public class CommonPage
 {
     WebDriver driver;
-    ElementsMethods elementsMethods;
+    ElementsMethod elementsMethod;
 
     public CommonPage(WebDriver driver)
     {
         this.driver = driver;
-        this.elementsMethods = new ElementsMethods(driver);
+        this.elementsMethod = new ElementsMethod(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -25,7 +25,6 @@ public class CommonPage
 
     public void clickOnSubMenu(String subMenuText)
     {
-        elementsMethods.clickOnElementByText(elements, subMenuText);
+        elementsMethod.clickOnElementByText(elements, subMenuText);
     }
-
 }

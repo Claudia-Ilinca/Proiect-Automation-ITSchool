@@ -6,29 +6,28 @@ import org.apache.logging.log4j.ThreadContext;
 
 import java.io.*;
 
-
 public class LoggerUtility {
-    private static final String suiteLogsPath = "target/logs/suite/";
+
+    private static final String suiteLogsPath = "target/log/suite/";
     private static final String regressionSuiteLogsPath = "target/logs/";
-    private static final Logger logger = LogManager.getLogger() ;
+    public static final Logger logger = LogManager.getLogger();
 
-
-    public static synchronized void startTestCase(String testName){
-        ThreadContext.put("threadName" , testName);
-        logger.info("------Execution started" + testName + "------");
+    public static synchronized void startTestCase(String testName)
+    {
+        ThreadContext.put("threadName",testName);
+        logger.info("--------Execution started" + testName + "--------");
     }
-
-    public static synchronized void endTestCase(String testName){
-
-        logger.info("------Execution ended" + testName+ "------");
+    public static synchronized void endTestCase(String testName)
+    {
+        logger.info("--------Execution ended" + testName + "--------");
     }
-
-    public static synchronized void infoTest(String stepName){
-        logger.info(Thread.currentThread().getName()+": "+ getCallInfo() + stepName);
+    public static synchronized void infoTest(String stepName)
+    {
+        logger.info(Thread.currentThread().getName()+": "+getCallInfo()+stepName);
     }
-
-    public static synchronized void errorLog(String errorName){
-        logger.info(Thread.currentThread().getName() + " : "+ getCallInfo() + errorName);
+    public static synchronized void errorLog(String errorName)
+    {
+        logger.info(Thread.currentThread().getName()+" "+getCallInfo()+errorName);
     }
 
     public static synchronized String getCallInfo(){
@@ -37,9 +36,7 @@ public class LoggerUtility {
         return className + " " + methodName;
     }
 
-
-
-    public static void mergedFilesIntoOne(){
+    public static void mergeFilesIntoOne() {
         File dir = new File(suiteLogsPath);
         String[] fileNames = dir.list();
         PrintWriter pW = null;
@@ -56,22 +53,10 @@ public class LoggerUtility {
                 }
                 pW.flush();
             }
-        }catch (IOException e)
-        {
+        }catch (IOException e){
             System.out.println(e.getMessage());
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

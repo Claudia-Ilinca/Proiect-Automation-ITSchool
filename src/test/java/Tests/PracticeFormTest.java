@@ -4,200 +4,215 @@ import ObjectData.PracticeFormObjectData;
 import Pages.CommonPage;
 import Pages.HomePage;
 import Pages.PracticeFormPage;
+import ShareDataBrowser.Hooks;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
 import xmlReaderUtility.xmlReader;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import static java.sql.DriverManager.getDriver;
 
-public class PracticeFormTest
-{
-    WebDriver driver;
+public class PracticeFormTest extends Hooks {
+
+
     CommonPage commonPage;
     HomePage homePage;
     PracticeFormPage practiceFormPage;
     private Map<String, PracticeFormObjectData> practiceFormObjectDataMap;
 
+
     @Test
 
-    public void metodaTest()
-    {
-        practiceFormObjectDataMap = xmlReader.loadData("src/test/resources/practiceFormData.xml", PracticeFormObjectData.class);
+
+
+    public void metodaTest(){
+        practiceFormObjectDataMap = xmlReader.loadData("src/test/resources/PracticeFormData.xml",PracticeFormObjectData.class);
         PracticeFormObjectData data = practiceFormObjectDataMap.get("dataSet_1");
-        driver = new ChromeDriver();
-        driver.get("https://demoqa.com/");
-        driver.manage().window().maximize();
-
-        homePage = new HomePage(driver);
-        commonPage = new CommonPage(driver);
-        practiceFormPage = new PracticeFormPage(driver);
-
+        homePage = new HomePage(getDriver());
+        commonPage = new CommonPage(getDriver());
+        practiceFormPage = new PracticeFormPage(getDriver());
         homePage.clickOnForms();
         commonPage.clickOnSubMenu("Practice Form");
+
         practiceFormPage.fillFirstRegion(data);
+        //scroll
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) getDriver();
+        javascriptExecutor.executeScript("window.scrollTo(0,500)");
 
 
-
-
-        /*WebElement formsButton = driver.findElement(By.xpath("//*[@class='card mt-4 top-card'][2]"));
-        formsButton.click();*/
-
-        WebElement practiceButton = driver.findElement(By.xpath("//span[text()='Practice Form']"));
-        practiceButton.click();
-
+       /* //gender check
         String gender = "Female";
-        WebElement genderMale = driver.findElement(By.xpath("//label[@for='gender-radio-1']"));
-        WebElement genderFemale = driver.findElement(By.xpath("//label[@for='gender-radio-2']"));
-        WebElement genderOther = driver.findElement(By.xpath("//label[@for='gender-radio-3']"));
+        WebElement genderMale = getDriver().findElement(By.xpath("//label[@for = 'gender-radio-1']"));
+        WebElement genderFemale = getDriver().findElement(By.xpath("//label[@for = 'gender-radio-2']"));
+        WebElement genderOther = getDriver().findElement(By.xpath("//label[@for = 'gender-radio-3']"));
+
 
         if (genderMale.getText().equals(gender))
         {
             genderMale.click();
         }
-        else if (genderFemale.getText().equals(gender))
+        else if(genderFemale.getText().equals("Female"))
         {
             genderFemale.click();
         }
+
         else if (genderOther.getText().equals(gender))
         {
             genderOther.click();
         }
 
 
-       /* switch (gender)
-        {
+        *//*switch (gender){
+
             case "Male":
                 genderMale.click();
+
                 break;
-            case  "Female":
+
+            case "Female":
                 genderFemale.click();
+
                 break;
-            case  "Other":
+
+            case "Other":
                 genderOther.click();
-                break;
+
+            break;
+        }*//*
 
 
-        }*/
+        String firstNameLbl = "Roxana";
+        String lastNameLbl = "Orz";
+        String emailLbl = "tototo@gmail.com";
+        String mobileNmbr = "00887733";
+        String subjectLabel = "E";
+        String currentAddr = "str c, bl g";
+        String stateField = "NCR";
+        String cityField = "d";
 
-        String firstNameLabel = "Claudia";
-        WebElement firstNameField = driver.findElement(By.id("firstName"));
-        firstNameField.sendKeys(firstNameLabel);
 
-        String lastNameLabel = "Ilinca";
-        WebElement lastNameField = driver.findElement(By.id("lastName"));
-        lastNameField.sendKeys(lastNameLabel);
+        //complete first name field
+        WebElement firstNameField = getDriver().findElement(By.id("firstName"));
+        firstNameField.sendKeys(firstNameLbl);
 
-        String emailLabel = "Claudia_Ilinca@vv.com";
-        WebElement emailField = driver.findElement(By.id("userEmail"));
-        emailField.sendKeys(emailLabel);
+        //last name
+        WebElement lastNameField = getDriver().findElement(By.id("lastName"));
+        lastNameField.sendKeys(lastNameLbl);
 
-        String numberLabel = "0234567898";
-        WebElement numberField = driver.findElement(By.id("userNumber"));
-        numberField.sendKeys(numberLabel);
+        //email field
+        WebElement emailField = getDriver().findElement(By.id("userEmail"));
+        emailField.sendKeys(emailLbl);
 
-        WebElement calendar = driver.findElement(By.id("dateOfBirthInput"));
-        calendar.click();
+        //mobile number
+        WebElement mobileNr= getDriver().findElement(By.id("userNumber"));
+        mobileNr.sendKeys(mobileNmbr);
+
+        //calendar
+        WebElement dateOfBirth = getDriver().findElement(By.id("dateOfBirthInput"));
+        dateOfBirth.click();
 
         String month = "April";
         String year = "2015";
         String day = "20";
 
 
-        WebElement selectMonth = driver.findElement(By.xpath("//select[@class='react-datepicker__month-select']"));
-        Select selectMonthHelp = new Select(selectMonth);
-        selectMonthHelp.selectByVisibleText(month);
+        WebElement selectMonthHelp = getDriver().findElement(By.xpath("//select[@class='react-datepicker__month-select']"));
+        Select selecta = new Select(selectMonthHelp);
+        selecta.selectByVisibleText(month);
 
-        WebElement selectYear = driver.findElement(By.xpath("//select[@class='react-datepicker__year-select']"));
-        Select selectYearHelp = new Select(selectYear);
-        selectYearHelp.selectByVisibleText(year);
+        WebElement selectYear = getDriver().findElement(By.xpath("//select[@class='react-datepicker__year-select']"));
+        Select select = new Select(selectYear);
+        select.selectByVisibleText(year);
 
-        WebElement selectDay = driver.findElement(By.xpath("//*[@class='react-datepicker__day react-datepicker__day--0" + day + "' and not(contains(@class,'react-datepicker__day--outside-month'))]"));
+        WebElement selectDay = getDriver().findElement(By.xpath("//*[@class='react-datepicker__day react-datepicker__day--0" + day + "' and not(contains(@class,'react-datepicker__day--outside-month'))]"));
         selectDay.click();
-        
 
 
-        /*String subjectLabel = "E";
-        WebElement subjectField = driver.findElement(By.id("subjectsInput"));
-        subjectField.sendKeys(subjectLabel);
-        subjectField.sendKeys(Keys.ARROW_DOWN);
-        subjectField.sendKeys(Keys.ARROW_DOWN);
-        subjectField.sendKeys(Keys.ARROW_DOWN);
-        subjectField.sendKeys(Keys.ARROW_DOWN);
-        subjectField.sendKeys(Keys.ENTER);
+        //click pe alt element pentru a putea continua testul
 
+        WebElement nrMobil= getDriver().findElement(By.id("userNumber"));
+        nrMobil.click();
 
-        String addressLabel = "address";
-        WebElement addressField = driver.findElement(By.id("currentAddress"));
-        addressField.sendKeys(addressLabel);*/
+        //current address
+        WebElement currentAdd = getDriver().findElement(By.id("currentAddress"));
+        currentAdd.sendKeys(currentAddr);
+
+        //label subject
+        WebElement subjectLbl = getDriver().findElement(By.id("subjectsInput"));
+        subjectLbl.sendKeys(subjectLabel);
+        subjectLbl.sendKeys(Keys.ARROW_DOWN);
+        subjectLbl.sendKeys(Keys.ARROW_DOWN);
+        subjectLbl.sendKeys(Keys.ARROW_DOWN);
+        subjectLbl.sendKeys(Keys.ARROW_DOWN);
+        subjectLbl.sendKeys(Keys.ENTER);
+
         //hobbies
-        WebElement sportsCheckbox = driver.findElement(By.xpath("//*[@for='hobbies-checkbox-1']"));
-        WebElement readingCheckbox = driver.findElement(By.xpath("//*[@for='hobbies-checkbox-2']"));
-        WebElement musicCheckbox = driver.findElement(By.xpath("//*[@for='hobbies-checkbox-3']"));
+        WebElement sportCheckbox = getDriver().findElement(By.xpath("//*[@for='hobbies-checkbox-1']"));
+        WebElement readingCheckbox = getDriver().findElement(By.xpath("//*[@for='hobbies-checkbox-2']"));
+        WebElement musicCheckbox = getDriver().findElement(By.xpath("//*[@for='hobbies-checkbox-3']"));
+
+        javascriptExecutor.executeScript("window.scrollTo(0,500)");
+
         //lista hobbies
+
         List<WebElement> listaElemente = new ArrayList<>();
-        listaElemente.add(sportsCheckbox);
+        listaElemente.add(sportCheckbox);
         listaElemente.add(readingCheckbox);
         listaElemente.add(musicCheckbox);
 
-        /*//Varianta 1
-        String[] numeHobby = new String [3];
-        numeHobby [0] = "Sports";
-        numeHobby [1] = "Reading";
-        numeHobby [2] = "Music";*/
-
-        //Varianta 2
         String[] hobbies = {"Sports", "Reading", "Music"};
-        for (String hobby : hobbies){
-            if(hobby.equals(sportsCheckbox.getText())){
-                sportsCheckbox.click();
+        for(String hobby : hobbies){
+
+            if (hobby.equals(sportCheckbox.getText()))
+            {
+            sportCheckbox.click();
             }
-            else if(hobby.equals(readingCheckbox.getText())){
-                readingCheckbox.click();
-            }
-            else if(hobby.equals(musicCheckbox.getText())){
+            else if (hobby.equals(readingCheckbox.getText()))
+            {
+            readingCheckbox.click();
+            } else if (hobby.equals(musicCheckbox.getText()))
+            {
                 musicCheckbox.click();
             }
-        }
+
+        }*/
 
 
-        /*musicCheckbox.click();
+       /* //upload img
+        WebElement chooseFile = driver.findElement(By.id("uploadPicture"));
+        File poza = new File("src/test/resources/images.png");
+        String path = poza.getAbsolutePath();
+        chooseFile.sendKeys(path);
 
-        JavascriptExecutor javascriptExecutor = (JavascriptExecutor)driver;
         javascriptExecutor.executeScript("window.scrollTo(0,500)");
-        //upload img
-        WebElement uploadButton = driver.findElement(By.id("uploadPicture"));
-        File poza = new File("src/test/resources/British-Shorthair-2.jpg");
-        String absPath = poza.getAbsolutePath();
-        uploadButton.sendKeys(absPath);
 
-        String stateLabel = "NCR";
-        WebElement stateField = driver.findElement(By.id("react-select-3-input"));
-        stateField.sendKeys(stateLabel);
-        stateField.sendKeys(Keys.ENTER);
+       //state
+        WebElement stateLbl = driver.findElement(By.id("react-select-3-input"));
+        stateLbl.sendKeys(stateField);
+       stateLbl.sendKeys(Keys.ENTER);
 
-        String cityLabel = "Delhi";
-        WebElement cityField = driver.findElement(By.id("react-select-4-input"));
-        cityField.sendKeys(cityLabel);
-        cityField.sendKeys(Keys.ENTER);
-
-        /*String stateLabel = "NCR";
-        WebElement stateField = driver.findElement(By.id("react-select-3-input"));
-        javascriptExecutor.executeScript("arguments[0].click();",stateField); // ar fi trebuit sa functioneze
-        stateField.sendKeys(stateLabel);
+       //city
+        WebElement cityLbl = driver.findElement(By.id("react-select-4-input"));
+        cityLbl.sendKeys(cityField);
+        cityLbl.sendKeys(Keys.ENTER);*/
 
 
-        String cityLabel = "Delhi";
-        WebElement cityField = driver.findElement(By.id("react-select-4-input"));*/
-
+      /* // un click
+        WebElement stateLbl = driver.findElement(By.id("react-select-3-input"));
+        javascriptExecutor.executeScript("arguments[0].click();",stateField);
+        stateLbl.sendKeys(stateField);*/
 
 
 
 
     }
+
 }
+
+
+
+
+
+
+
+

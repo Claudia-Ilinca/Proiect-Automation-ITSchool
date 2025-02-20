@@ -1,59 +1,54 @@
 package Pages;
 
-import HelperMethods.ElementsMethods;
-import ShareData.ShareDataBrowser;
+import HelperMethods.ElementsMethod;
+import ShareDataBrowser.ShareData;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class HomePage extends ShareDataBrowser
+public class HomePage extends ShareData
 {
 
-    WebDriver driver;
 
-    ElementsMethods elementsMethods;
+    ElementsMethod elementsMethod;
 
-    //constructorul parametrizat
     public HomePage(WebDriver driver)
     {
-        this.driver = driver;
-        this.elementsMethods = new ElementsMethods(driver);
-        PageFactory.initElements(driver, this);
-
+        this.elementsMethod = new ElementsMethod(driver);
+        PageFactory.initElements(driver,this);
     }
 
-    @FindBy(xpath = "//h5[text()='Forms']")
+    @FindBy(xpath = "//h5[text() = 'Forms']")
     WebElement formsButton;
 
-    @FindBy(xpath = "(//*[contains(@class, 'card mt-4 top-card')])[3]")
-    WebElement allertWindowFrameButton;
+    @FindBy(xpath = "//*[@class='card mt-4 top-card'] [3]")
+    WebElement alerts;
 
     @FindBy(xpath = "//h5[text()='Elements']")
-    WebElement ElementsButton;
+    WebElement elementsButton;
 
-    @FindBy(xpath = "//*[text()='Widgets']")
-    WebElement widgetsButton;
+    @FindBy(xpath = "//h5[text() = 'Widgets']")
+    WebElement widgets;
 
     public void clickOnForms()
     {
-        elementsMethods.clickOnElement(formsButton);
+        elementsMethod.clickOnElement(formsButton);
     }
 
-    public void clickOnAlert()
+    public void clickOnAlerts()
     {
-        elementsMethods.clickOnElement(allertWindowFrameButton);
+        elementsMethod.clickOnElement(alerts);
     }
 
-//    public void clickOnElementButton()
-//    {
-//        elementsMethods.clickOnElement(elementsMethods);
-//    }
+    public void clickOnElementsButton()
+    {
+        elementsMethod.clickOnElement(elementsButton);
+    }
 
     public void clickOnWidgets()
     {
-        elementsMethods.clickOnElement(widgetsButton);
+        elementsMethod.clickOnElement(widgets);
     }
-
 
 }

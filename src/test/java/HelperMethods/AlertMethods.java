@@ -15,7 +15,7 @@ public class AlertMethods
     public AlertMethods(WebDriver driver)
     {
         this.driver = driver;
-        driverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driverWait = new WebDriverWait(driver,Duration.ofSeconds(5));
     }
 
     public void alertOk()
@@ -48,5 +48,4 @@ public class AlertMethods
         alertText.sendKeys(text);
         alertText.accept();
     }
-
 }

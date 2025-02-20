@@ -11,52 +11,47 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
-
+//citeste din xml si mapeaza in obiectele pe care le folosim
 public class xmlReader
 {
     public static <T> Map<String, T> loadData(String filePath, Class<T> clazz)
     {
         Map<String, T> dataMap = new HashMap<>();
-        try {
-            File file = new File(filePath);
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(file);
-            document.getDocumentElement().normalize();
+        try{
+        File file = new File(filePath);
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document document = builder.parse(file);
+        document.getDocumentElement().normalize();
 
-            NodeList nodeList = document.getElementsByTagName("dataSets").item(0).getChildNodes();
-            for (int i = 0; i < nodeList.getLength(); i++)
-            {
-                Node node = nodeList.item(i);
-                if (node.getNodeType() == Node.ELEMENT_NODE)
-                {
-                    Element element = (Element) node;
-                    String key = element.getNodeName();
+        NodeList nodeList = document.getElementsByTagName("dataSets").item(0).getChildNodes();
+        for (int i = 0; i<nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                String key = element.getNodeName();
 
-                    T obj = clazz.getDeclaredConstructor().newInstance();
+                T obj = clazz.getDeclaredConstructor().newInstance();
 
-                    for (Field field: clazz.getDeclaredFields())
-                    {
-                        field.setAccessible(true);
-                        String fieldName = field.getName();
-
-                        if (element.getElementsByTagName(fieldName).getLength()>0) {
-                            String value = element.getElementsByTagName(fieldName).item(0).getTextContent();
-
-                            if (field.getType().equals(int.class))
-                            {
-                                field.set(obj, Integer.parseInt(value));
-                            }
-                            else field.set(obj,value);
-                        }
+                for (Field field : clazz.getDeclaredFields()) {
+                    field.setAccessible(true);
+                    String fieldName = field.getName();
+                    if (element.getElementsByTagName(fieldName).getLength() > 0) {
+                        String value = element.getElementsByTagName(fieldName).item(0).getTextContent();
+                        if (field.getType().equals(int.class)) {
+                            field.set(obj, Integer.parseInt(value));
+                        } else field.set(obj, value);
                     }
-                    dataMap.put(key,obj);
+                    }
+                    dataMap.put(key, obj);
                 }
+
             }
         }catch(Exception e)
         {
             e.printStackTrace();
         }
-        return dataMap;
+           return dataMap;
     }
+
 }

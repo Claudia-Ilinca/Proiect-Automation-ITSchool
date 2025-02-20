@@ -1,13 +1,14 @@
 package Pages;
 
-import HelperMethods.ElementsMethods;
+import HelperMethods.ElementsMethod;
 import ObjectData.PracticeFormObjectData;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class PracticeFormPage extends CommonPage {
+public class PracticeFormPage extends CommonPage
+{
 
 
     @FindBy(id = "firstName")
@@ -48,6 +49,7 @@ public class PracticeFormPage extends CommonPage {
 
     @FindBy(xpath = "//*[@for='hobbies-checkbox-2']")
     WebElement readingCheckbox;
+
     @FindBy(id = "uploadPicture")
     WebElement uploadButton;
 
@@ -59,18 +61,20 @@ public class PracticeFormPage extends CommonPage {
 
     @FindBy(id = "react-select-4-input")
     WebElement cityField;
-    //constructorul parametrizat
+
     public PracticeFormPage(WebDriver driver)
     {
         super(driver);
-
     }
 
-    public void fillFirstRegion(PracticeFormObjectData data){
-        elementsMethods.fillElement(firstNameField, data.getFirstName());
-        elementsMethods.fillElement(lastNameField, data.getLastName());
-        elementsMethods.fillElement(emailField, data.getEmail());
-        elementsMethods.fillElement(numberField, data.getMobile());
 
+    public void fillFirstRegion(PracticeFormObjectData data)
+    {
+        elementsMethod.fillElement(firstNameField, data.getFirstName());
+        elementsMethod.fillElement(lastNameField, data.getLastName());
+        elementsMethod.fillElement(emailField, data.getEmail());
+        elementsMethod.fillElement(numberField,data.getMobile());
     }
+
+
 }

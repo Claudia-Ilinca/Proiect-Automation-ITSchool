@@ -1,48 +1,44 @@
 package Tests;
 
+import ShareDataBrowser.Hooks;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 
-public class MenuTest {
-    WebDriver driver;
+import java.util.List;
+
+public class MenuTest extends Hooks {  WebDriver driver;
 
     @Test
-    public void MetodaTest() {
 
+    public void metodaTest() throws InterruptedException {
         driver = new ChromeDriver();
         driver.get("https://demoqa.com/");
         driver.manage().window().maximize();
 
-        WebElement Widgets = driver.findElement(By.xpath("//*[@class='card mt-4 top-card'][4]"));
-        Widgets.click();
+        WebElement widgets = driver.findElement(By.xpath("//h5[text() = 'Widgets']"));
+        widgets.click();
 
-        /*List<WebElement> MenuList = driver.findElements(By.xpath("//*[@class='element-list collapse show']//*[@class='btn btn-light']"));
-        MenuList.get(7).click();*/
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+        javascriptExecutor.executeScript("window.scrollTo(0,500)");
 
-        WebElement menuButtonList = driver.findElement(By.xpath("//*[text()='Menu']"));
-        menuButtonList.click();
+        //list
+        List<WebElement> alertsList = driver.findElements(By.xpath("//*[ @class = 'element-list collapse show'] //*[@class = 'btn btn-light ']"));
+        alertsList.get(7).click();
 
-        /*WebElement mainitem2 = driver.findElement(By.xpath("//*[text()='Main item 2']"));
-
+        WebElement mainItem2 = driver.findElement(By.xpath("//*[text() = 'Main Item 2' ]"));
         Actions actions = new Actions(driver);
-        actions.moveToElement(mainitem2)
-                .build()
-                .perform();*/
-
-        /*WebElement sublist = driver.findElement(By.xpath("//*[text()='SUB SUB LIST>>']"));
-        actions.moveToElement(sublist)
+        actions.moveToElement(mainItem2)
                 .build()
                 .perform();
 
-        WebElement sublist1 = driver.findElement(By.xpath("//*[text()='Sub Sub Item 1']"));
-        actions.click(sublist1)
-                .build()
-                .perform();*/
+        WebElement sublist = driver.findElement(By.xpath("//*[text()='SUB SUB LIST »']"));
+        actions.moveToElement(sublist).build().perform();
 
-
-
-    }
-}
+        WebElement subItem = driver.findElement(By.xpath("//*[text()='Sub Sub Item 1']"));
+        actions.click(subItem).build().perform();
+}}

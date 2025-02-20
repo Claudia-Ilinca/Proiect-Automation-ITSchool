@@ -1,94 +1,112 @@
 package Tests;
 
+import Pages.HomePage;
+import ShareDataBrowser.ShareData;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class WebTableTest {
-    WebDriver driver;
+public class WebTableTest extends ShareData {
+
+
+    HomePage homePage;
 
     @Test
     public void metodaTest(){
 
-        driver = new ChromeDriver();
-        driver.get("https://demoqa.com/");
-        driver.manage().window().maximize();
+        homePage = new HomePage(getDriver());
 
-        String firstNameForm = "First";
+        WebElement elements = getDriver().findElement(By.xpath("//h5[text()='Elements']"));
+        elements.click();
+
+        String firstName = "First";
         String lastName = "Last";
-        String emailForm = "kierra@examplefff.com";
-        String age = "66";
-        String salary = "2009";
-        String department = "HR";
+        String valEmail = "valid@email.com";
+        String valAge = "26";
+        String valSalary = "2000";
+        String chooseDep = "Whatever";
 
-        WebElement elementsButton = driver.findElement(By.xpath("//h5[text()='Elements']"));
-        elementsButton.click();
+
+        //scroll method
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) getDriver();
+        javascriptExecutor.executeScript("window.scrollTo(0,500)");
+
 
         //user clicks on webTables button
-        WebElement webTablesButton = driver.findElement(By.xpath("//span[text()='Web Tables']"));
+        WebElement webTablesButton = getDriver().findElement(By.xpath("//span[text()='Web Tables']"));
         webTablesButton.click();
 
-        adaugareRand("Adina", "Ionescu", "adina@email.com", "23", "7898", "Financiar");
-        adaugareRand("Ioana", "Popescu", "Ioabna@email.com", "34", "12333", "Logistica");
+        adaugareRand("Roxana", "Orz", "rrrr@gmail.com", "26", "2000", "ddd");
+        adaugareRand("fdsa", "fdgg", "rrrr@gmail.com", "30", "1000", "ddd");
 
-   }
+    }
 
-   public void adaugareRand( String firstNameForm, String lastName, String emailForm, String age, String salary, String department)
-   {
+    public void adaugareRand(String firstName, String lastName, String valEmail, String valAge, String valSalary, String chooseDep)
+    {
+        WebElement addButton = getDriver().findElement(By.xpath("//*[@id='addNewRecordButton']"));
+        addButton.click();
 
-       //user clicks on add button
-       WebElement addButton = driver.findElement(By.xpath("//*[@id='addNewRecordButton']"));
-       addButton.click();
+        //user enters valid first name
+        WebElement firstNameField = getDriver().findElement(By.id("firstName"));
+        firstNameField.sendKeys(firstName);
 
-       //user enters valid first name
-       WebElement firstNameField = driver.findElement(By.id("firstName"));
-       firstNameField.sendKeys(firstNameForm);
 
-       //user enters valid last name
-       WebElement lastNameField = driver.findElement(By.id("lastName"));
-       lastNameField.sendKeys(lastName);
+        //user enters valid first name
+        WebElement lastNameField = getDriver().findElement(By.id("lastName"));
+        lastNameField.sendKeys(lastName);
 
-       //user enters valid email
-       WebElement emailField = driver.findElement(By.id("userEmail"));
-       emailField.sendKeys(emailForm);
+        //user enters valid email
+        WebElement emailField = getDriver().findElement(By.id("userEmail"));
+        emailField.sendKeys(valEmail);
 
-       //user enters age
-       WebElement ageField = driver.findElement(By.id("age"));
-       ageField.sendKeys(age);
+        //user enters age
+        WebElement ageField = getDriver().findElement(By.id("age"));
+        ageField.sendKeys(valAge);
 
-       //user enters salary
-       WebElement salaryField = driver.findElement(By.id("salary"));
-       salaryField.sendKeys(salary);
+        //user enters salary
+        WebElement salaryField = getDriver().findElement(By.id("salary"));
+        salaryField.sendKeys(valSalary);
 
-       //user enters department
-       WebElement depField = driver.findElement(By.id("department"));
-       depField.sendKeys(department);
+        //user enters department
+        WebElement depField = getDriver().findElement(By.id("department"));
+        depField.sendKeys(chooseDep);
 
-       WebElement submitBtn = driver.findElement(By.id("submit"));
-       submitBtn.click();
+        //user clicks submit
+        WebElement submitBtn = getDriver().findElement(By.id("submit"));
+        submitBtn.click();
 
-       List<WebElement> listaTabelUpdated = driver.findElements(By.xpath("//*[@class='rt-tbody']/div/div[@class='rt-tr -odd' or @class='rt-tr -even']"));
-       int nrRand = listaTabelUpdated.size();
+        List<WebElement> listaTabelUpdated = getDriver().findElements(By.xpath("//*[@class='rt-tbody']/div/div[@class='rt-tr -odd' or @class='rt-tr -even']"));
+        int nrRand = listaTabelUpdated.size();
 
-       WebElement firstNameOutput = driver.findElement(By.xpath("//*[@class='rt-tr-group']["+nrRand+"]//*[@class='rt-td'][1]"));
-       WebElement secondNameOutput = driver.findElement(By.xpath("//*[@class='rt-tr-group']["+nrRand+"]//*[@class='rt-td'][2]"));
-       WebElement emailOutput = driver.findElement(By.xpath("//*[@class='rt-tr-group']["+nrRand+"]//*[@class='rt-td'][4]"));
-       WebElement ageOutput = driver.findElement(By.xpath("//*[@class='rt-tr-group']["+nrRand+"]//*[@class='rt-td'][3]"));
-       WebElement salaryOutput = driver.findElement(By.xpath("//*[@class='rt-tr-group']["+nrRand+"]//*[@class='rt-td'][5]"));
-       WebElement departmentOutput = driver.findElement(By.xpath("//*[@class='rt-tr-group']["+nrRand+"]//*[@class='rt-td'][6]"));
 
-        Assert.assertTrue(firstNameOutput.getText().contains(firstNameForm));
+
+        //javascriptExecutor.executeScript("window.scrollTo(0,500)");
+
+
+        WebElement firstNameOutput = getDriver().findElement(By.xpath("//*[@class='rt-tr-group']["+nrRand+"] //*[@class='rt-td'][1]"));
+        WebElement secondNameOutput = getDriver().findElement(By.xpath("//*[@class='rt-tr-group']["+nrRand+"]//*[@class='rt-td'][2]"));
+        WebElement emailOutput = getDriver().findElement(By.xpath("//*[@class='rt-tr-group']["+nrRand+"]//*[@class='rt-td'][4]"));
+        WebElement ageOutput = getDriver().findElement(By.xpath("//*[@class='rt-tr-group']["+nrRand+"]//*[@class='rt-td'][3]"));
+        WebElement salaryOutput = getDriver().findElement(By.xpath("//*[@class='rt-tr-group']["+nrRand+"]//*[@class='rt-td'][5]"));
+        WebElement departmentOutput = getDriver().findElement(By.xpath("//*[@class='rt-tr-group']["+nrRand+"]//*[@class='rt-td'][6]"));
+
+
+        Assert.assertTrue(firstNameOutput.getText().contains(firstName));
         Assert.assertTrue(secondNameOutput.getText().contains(lastName));
-        Assert.assertTrue(emailOutput.getText().contains(emailForm));
-        Assert.assertTrue(ageOutput.getText().contains(age));
-        Assert.assertTrue(salaryOutput.getText().contains(salary));
-        Assert.assertTrue(departmentOutput.getText().contains(department));
-   }
+        Assert.assertTrue(emailOutput.getText().contains(valEmail));
+        Assert.assertTrue(ageOutput.getText().contains(valAge));
+        Assert.assertTrue(salaryOutput.getText().contains(valSalary));
+        Assert.assertTrue(departmentOutput.getText().contains(chooseDep));
+
+    }
 
 
-}
+    }
+
+
+
+

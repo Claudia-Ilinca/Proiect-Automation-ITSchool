@@ -1,18 +1,16 @@
-package ShareData.Browser;
+package ShareDataBrowser.Browser;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 
-public class EdgeService implements BrowserServiceInterface{
+public class EdgeService implements BrowserServiceInterface {
     private WebDriver driver;
+
     @Override
     public void openBrowser() {
         EdgeOptions options = (EdgeOptions) browserOptions();
         driver = new EdgeDriver(options);
-
     }
 
     @Override
@@ -20,12 +18,12 @@ public class EdgeService implements BrowserServiceInterface{
         EdgeOptions options = new EdgeOptions();
         options.addArguments("--disable-gpu");
         options.addArguments("--no-sandbox");
-        options.addArguments("--window-size=3440,1440");
-
-        return null;
+        options.addArguments("--window-size=3820,2160");
+        return options;
     }
 
-    public WebDriver getDriver() {
+    public WebDriver getDriver()
+    {
         return driver;
     }
 }
