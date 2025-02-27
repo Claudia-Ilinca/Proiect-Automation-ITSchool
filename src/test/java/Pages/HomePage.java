@@ -1,54 +1,48 @@
 package Pages;
 
 import HelperMethods.ElementsMethod;
-import ShareDataBrowser.ShareData;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class HomePage extends ShareData
-{
+public class HomePage {
 
-
+    WebDriver driver;
     ElementsMethod elementsMethod;
 
-    public HomePage(WebDriver driver)
-    {
+    public HomePage(WebDriver driver) {
+        this.driver = driver;
         this.elementsMethod = new ElementsMethod(driver);
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "//h5[text() = 'Forms']")
-    WebElement formsButton;
+    @FindBy(xpath = "//*[@class='card mt-4 top-card'][2]")
+        WebElement formsButton;
 
-    @FindBy(xpath = "//*[@class='card mt-4 top-card'] [3]")
-    WebElement alerts;
+    @FindBy(xpath = "//*[@class='card mt-4 top-card'][3]")
+        WebElement alertWindowFrameButton;
 
     @FindBy(xpath = "//h5[text()='Elements']")
-    WebElement elementsButton;
+        WebElement elementButton;
 
-    @FindBy(xpath = "//h5[text() = 'Widgets']")
-    WebElement widgets;
+    @FindBy(xpath="//*[text()='Widgets']")
+            WebElement WidgetsButton;
 
-    public void clickOnForms()
-    {
+    public void clickOnForms(){
         elementsMethod.clickOnElement(formsButton);
     }
 
-    public void clickOnAlerts()
-    {
-        elementsMethod.clickOnElement(alerts);
+    public void clickOnAlert(){
+        elementsMethod.clickOnElement(alertWindowFrameButton);
     }
 
-    public void clickOnElementsButton()
-    {
-        elementsMethod.clickOnElement(elementsButton);
+    public void clickOnElements(){
+        elementsMethod.clickOnElement(elementButton);
     }
 
-    public void clickOnWidgets()
-    {
-        elementsMethod.clickOnElement(widgets);
+    public void clickOnWidgets(){
+        elementsMethod.clickOnElement(WidgetsButton);
     }
 
 }

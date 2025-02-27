@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class webTables extends ShareData {
+public class WebTables extends ShareData {
 
     HomePage homePage;
 

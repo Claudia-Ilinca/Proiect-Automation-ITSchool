@@ -1,14 +1,15 @@
 <dataSets>
     <dataSet_1>
-        <firstName>Roxana</firstName>
-        <lastName>Rox</lastName>
-        <email>fasf@gmail.com</email>
-        <currentAddress>fsaf</currentAddress>
-        <mobile>0767387647</mobile>
+        <firstName>Popescu</firstName>
+        <lastName>Maria</lastName>
+        <email>testEmail@test.com</email>
+        <currentAddress>currentAddress 1</currentAddress>
+        <mobile>1234567890</mobile>
         <gender>Female</gender>
-        <subject>English</subject>
-        <state>Haryana</state>
-        <city>Karnal</city>
+        <subject>e</subject>
+        <state>NCR</state>
+        <city>Delhi</city>
+        <imagePath>src/test/resources/zapada.jpg</imagePath>
+        <hobby>Sports,Music</hobby>
     </dataSet_1>
 </dataSets>
-

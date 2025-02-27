@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 
-public class EdgeService implements BrowserServiceInterface {
+public class EdgeService implements BrowserServiceInterface{
     private WebDriver driver;
 
     @Override
@@ -18,12 +18,12 @@ public class EdgeService implements BrowserServiceInterface {
         EdgeOptions options = new EdgeOptions();
         options.addArguments("--disable-gpu");
         options.addArguments("--no-sandbox");
-        options.addArguments("--window-size=3820,2160");
+        options.addArguments("--window-size=1920,1080");
         return options;
     }
 
-    public WebDriver getDriver()
-    {
+    public WebDriver getDriver() {
         return driver;
     }
+
 }

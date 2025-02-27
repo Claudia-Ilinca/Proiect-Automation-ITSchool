@@ -6,10 +6,9 @@ public class BrowserFactory {
 
     public WebDriver getBrowserFactory() {
         String browser = System.getProperty("browser");
-        System.out.println("Ruleaza " + browser);
+        System.out.println("Ruleaza: " + browser);
 
-        switch (browser)
-        {
+        switch (browser){
             case BrowserType.BROWSER_CHROME:
                 ChromeService chromeBrowser = new ChromeService();
                 chromeBrowser.openBrowser();
@@ -18,8 +17,8 @@ public class BrowserFactory {
                 EdgeService edgeBrowser = new EdgeService();
                 edgeBrowser.openBrowser();
                 return edgeBrowser.getDriver();
+
         }
         return null;
-
     }
 }

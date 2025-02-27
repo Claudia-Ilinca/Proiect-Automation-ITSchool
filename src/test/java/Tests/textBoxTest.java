@@ -1,83 +1,88 @@
 package Tests;
 
+import HelperMethods.JavaMethods;
+import ObjectData.TextboxTableObjectData;
+import Pages.CommonPage;
 import Pages.HomePage;
+import Pages.TextboxPage;
+import ShareDataBrowser.Hooks;
 import ShareDataBrowser.ShareData;
-import org.openqa.selenium.*;
+import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import xmlReaderUtility.xmlReader;
 
-public class textBoxTest extends ShareData {
+import java.util.Map;
 
+public class TextboxTest extends Hooks {
 
     HomePage homePage;
+    CommonPage commonPage;
+    TextboxPage textboxPage;
+    JavaMethods javaMethods;
+    private Map<String, TextboxTableObjectData> textboxTableObjectDataMap;
 
-
-    //demoQaTests
     @Test
-    //openSite
+    public void methodTest() {
+        textboxTableObjectDataMap = xmlReader.loadData("src/test/resources/textboxData.xml", TextboxTableObjectData.class);
+        TextboxTableObjectData  data = textboxTableObjectDataMap.get("dataSet_1");
 
 
-    public void metodaTest()
-    {
+        javaMethods = new JavaMethods(getDriver());
+        javaMethods.scrollToXY(0,500);
+
         homePage = new HomePage(getDriver());
+        commonPage = new CommonPage(getDriver());
+        textboxPage = new TextboxPage(getDriver());
 
-        //variabile
-        String name = "Roxana";
-        String emailVal = "rorxana@gmail.com";
-        String currentAddr = "Str. ddd, nr. 0";
-        String permanentAddr = "Str. ddd, nr. 0";
+        homePage.clickOnElements();
+        commonPage.clickOnSubmenu("Text Box");
 
+        textboxPage.fillData(data);
+        javaMethods.scrollToXY(0,800);
+        textboxPage.clickOnSubmit();
 
-        //scroll method
-        JavascriptExecutor javascriptExecutor = (JavascriptExecutor)getDriver();
+        Assert.assertTrue(textboxPage.getOutName().contains(data.getName()));
+        Assert.assertTrue(textboxPage.getOutEmail().contains(data.getEmail()));
+        Assert.assertTrue(textboxPage.getOutCurrentAddress().contains(data.getCurrentAddress()));
+        Assert.assertTrue(textboxPage.getOutPermanentAddress().contains(data.getPermanentAddress()));
+
+    }
+
+    @Test
+    public void methodTest2() {
+        textboxTableObjectDataMap = xmlReader.loadData("src/test/resources/textboxData.xml", TextboxTableObjectData.class);
+        TextboxTableObjectData  data = textboxTableObjectDataMap.get("dataSet_2");
+
+//        String name = "Stefania";
+//        String email = "stefania.munteanu@gmail.com";
+//        String currentAddress = "Nicolae Labis 1, Brasov";
+//        String permanentAddress = "Nicolae Labis 1, Brasov, Romania";
+
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) getDriver();
         javascriptExecutor.executeScript("window.scrollTo(0,500)");
 
+        homePage = new HomePage(getDriver());
+        commonPage = new CommonPage(getDriver());
+        textboxPage = new TextboxPage(getDriver());
 
-        //User clicks on the elements button
-        WebElement elementsButton = getDriver().findElement(By.xpath("//h5[text()='Elements']"));
-        elementsButton.click();
+        homePage.clickOnElements();
+        commonPage.clickOnSubmenu("Text Box");
 
-        //user clicks on the text box button
-        WebElement txtBoxButton = getDriver().findElement(By.xpath("//span [text()='Text Box']"));
-        txtBoxButton.click();
+        textboxPage.typeUserName(data);
+        textboxPage.typeUserEmail(data);
+        textboxPage.typeUserCurrentAddress(data);
+        textboxPage.typeUserPermanentAddress(data);
 
-        //user enters credentials in the full name field
-        WebElement fullNameField = getDriver().findElement(By.id("userName"));
-        fullNameField.sendKeys(name);
+        javascriptExecutor.executeScript("window.scrollTo(0,800)");
 
-        //user enters valid credentials in the email field
-        WebElement userEmailField = getDriver().findElement(By.id("userEmail"));
-        userEmailField.sendKeys(emailVal); //no space between
+        textboxPage.clickOnSubmit();
 
-        //user enters credentials in the current address field
-        WebElement currentAddressField = getDriver().findElement(By.id("currentAddress"));
-        currentAddressField.sendKeys(currentAddr);
+        Assert.assertTrue(textboxPage.getOutName().contains(data.getName()));
+        Assert.assertTrue(textboxPage.getOutEmail().contains(data.getEmail()));
+        Assert.assertTrue(textboxPage.getOutCurrentAddress().contains(data.getCurrentAddress()));
+        Assert.assertTrue(textboxPage.getOutPermanentAddress().contains(data.getPermanentAddress()));
 
-        //user enters credentials in the permanent address field
-        WebElement permanentAddressField = getDriver().findElement(By.id("permanentAddress"));
-        permanentAddressField.sendKeys(permanentAddr);
-
-        //scroll
-        javascriptExecutor.executeScript("window.scrollTo(0,500)");
-
-        //user clicks on the submit button
-        WebElement submitBtn = getDriver().findElement(By.id("submit"));
-        submitBtn.click();
-
-        WebElement nameOutput = getDriver().findElement(By.id("name"));
-        WebElement emailOutput = getDriver().findElement(By.id("email"));
-        WebElement currentAddress = getDriver().findElement(By.xpath("//p[@class='mb-1'][3]")); //dupa clasa de care e nevoie
-        WebElement permanentAddress = getDriver().findElement(By.xpath("//p[@id='permanentAddress']"));
-
-
-        String outputNameString = nameOutput.getText();
-        String outputCurrentAddress = currentAddress.getText();
-
-
-        Assert.assertTrue(outputNameString.contains(name));
-        Assert.assertTrue(emailOutput.getText().contains(emailVal));
-        Assert.assertTrue(outputCurrentAddress.contains(currentAddr));
-        Assert.assertTrue(permanentAddress.getText().contains(permanentAddr));
-
+        //  driver.close();
     }
 }

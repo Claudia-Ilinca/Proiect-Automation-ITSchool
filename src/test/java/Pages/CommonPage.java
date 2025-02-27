@@ -8,23 +8,20 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class CommonPage
-{
+public class CommonPage {
     WebDriver driver;
     ElementsMethod elementsMethod;
 
-    public CommonPage(WebDriver driver)
-    {
+    public CommonPage(WebDriver driver) {
         this.driver = driver;
         this.elementsMethod = new ElementsMethod(driver);
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "//span[@class = 'text']")
+    @FindBy(xpath="//span[@class='text']")
     List<WebElement> elements;
 
-    public void clickOnSubMenu(String subMenuText)
-    {
+    public void clickOnSubmenu(String subMenuText){
         elementsMethod.clickOnElementByText(elements, subMenuText);
     }
 }

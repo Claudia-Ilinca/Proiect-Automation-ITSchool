@@ -4,15 +4,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class ChromeService implements BrowserServiceInterface
-{
+public class ChromeService implements BrowserServiceInterface{
+
     private WebDriver driver;
 
-
-
     @Override
-    public void openBrowser()
-    {
+    public void openBrowser() {
         ChromeOptions options = (ChromeOptions) browserOptions();
         driver = new ChromeDriver(options);
     }

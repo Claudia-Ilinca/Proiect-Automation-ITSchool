@@ -7,45 +7,40 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class AlertMethods
-{
+public class AlertMethods {
     WebDriver driver;
     WebDriverWait driverWait;
 
-    public AlertMethods(WebDriver driver)
-    {
+    public AlertMethods(WebDriver driver) {
         this.driver = driver;
-        driverWait = new WebDriverWait(driver,Duration.ofSeconds(5));
+        driverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    public void alertOk()
-    {
+    public void AlertOk(){
         Alert alertOk = driver.switchTo().alert();
         alertOk.accept();
     }
 
-    public void alertDelay()
-    {
+    public void alertDelay(){
         driverWait.until(ExpectedConditions.alertIsPresent());
-        alertOk();
+        AlertOk();
     }
 
-    public void alertCancel()
-    {
+    public void alertCancel(){
         Alert alertCancel = driver.switchTo().alert();
         alertCancel.dismiss();
     }
 
-    public void alertConfirm()
-    {
+    public void alertConfirm(){
         Alert alertConfirm = driver.switchTo().alert();
         alertConfirm.accept();
     }
 
-    public void alertPrompt(String text)
-    {
+    public void alertPrompt (String text){
         Alert alertText = driver.switchTo().alert();
         alertText.sendKeys(text);
         alertText.accept();
     }
+
+
 }

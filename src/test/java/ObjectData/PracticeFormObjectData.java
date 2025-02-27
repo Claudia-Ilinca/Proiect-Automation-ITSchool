@@ -1,7 +1,6 @@
 package ObjectData;
 
-public class PracticeFormObjectData
-{
+public class PracticeFormObjectData {
     private String firstName;
     private String lastName;
     private String email;
@@ -10,6 +9,17 @@ public class PracticeFormObjectData
     private String gender;
     private String subject;
     private String state;
+    private String city;
+    private String imagePath;
+    private String hobby;
+
+    public String getHobby() {
+        return hobby;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -46,6 +56,4 @@ public class PracticeFormObjectData
     public String getCity() {
         return city;
     }
-
-    private String city;
 }

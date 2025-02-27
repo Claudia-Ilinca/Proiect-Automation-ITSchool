@@ -1,7 +1,7 @@
 package ShareDataBrowser.Browser;
 
-public interface BrowserServiceInterface
-{
+public interface BrowserServiceInterface {
     void openBrowser();
     Object browserOptions();
+
 }
